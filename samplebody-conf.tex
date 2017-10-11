@@ -1,9 +1,15 @@
 \section{Introduction}
-A common problem with automated mobile software testing is testing mobile applications when the state of the device changes.  Testing the different states of an application has been enhanced with tools such as Espresso and Robotium \cite{optimusinformationinc2016}. The problem with this issue is that often, the state of a device will cause a catastrophic failure of a feature within an application when the state of a mobile device changes; therefore, it is more expensive to not test device states against application states at all.  Since the state of an application can be easily saved and the state of a device can be easily changed programmatically, a solution can be made that automatically tests application states with different device states.  For applications being used in different device states, such as a mapping application used outside of network range or medical applications using sensors for monitoring functions, application to device state testing this becomes an extremely important issue.  This author was once almost lost in the mountains because of one such issue.    
+A common problem with automated mobile software testing is testing mobile applications when the state of the device changes.  Testing the different states of an application has been enhanced with tools such as Espresso and Robotium \cite{optimusinformationinc2016}. The problem with this issue is that often, the state of a device will cause a catastrophic failure of a feature within an application when the state of a mobile device changes; therefore, it is more expensive to not test device states against application states at all.  Since the state of an application can be easily saved and the state of a device can be easily changed programmatically, a solution can be made that automatically tests application states with different device states.  For applications being used in different device states, such as a mapping application used outside of network range or medical applications using sensors for monitoring functions, application to device state testing this becomes an extremely important issue.  Some of these issues can even be life safety critical.  Additionally, the innovative ways applications are used with new hardware is only increasing.  State testing of applications with new hardware devices is a critical area of research to ensure that applications can continue to operate well. 
 
 "The field of mobile specific, black-box testing, however, remains thin." \cite{paulovsky2017high}  That is the reasoning behind this endeavor to make easier testing tools that easily test the interaction of device states with applications states.  
 
 We have developed a Mobile application called "TADS" (Test Application to Device State) that uses a Mobile development UI tester to test the Mobile application against multiple states and sub-states of the device \cite{366932}.  TADS is primarily concerned with identifying errors caused by changing device states and not as concerned with identifying why the state change caused a failure.
+
+\section{Research Contributions}
+This work demonstrates that a library for doing state testing of devices that can be run with espresso is highly beneficial and easy to make.  The open source community could easily extend this set of tools started int his work that would compliment the automated testing tools that come standard with Android Studio.  Or, a company could make a simple product that would be very inexpensive that could be used by developers to improve the quality of their android applications. 
+
+The second contribution this work makes is that it will hopefully motivate Google to enable manufacturers of hardware interfaces for Android devices  to be able to submit Android Debug Bridge (ADB) commands, that change their device's states, to the ADB driver so that device state testing can become more robust, efficient, and commonplace. Currently, the inner workings of hardware devices must be understood in order to accomplish state changes and Google providing a way for state changes to be initiated via the ADB command will prove invaluable.   
+
 
 \section{Background}
 As of the writing of this paper, there is not any research available on building out an automatic device state testing utility.  In order to understand this project a few items must be known ahead of time.  
@@ -17,5 +23,50 @@ There are several tools developed that can capture various information of an app
 Many others, such as \cite{7927971} have made tools for recording tests that can be later executed in ways that are plaform independent which is a nice utility that we will not be concerned with in this work.  Others have made unit level state testing models such as \cite{MilaniFard:2014:LET:2642937.2642991} in which the state of the application is tested by automatically building a model using a dynamic and static crawler and then running that created model against a verification algorithm.  These researchers developed a way to use model testing to find security vulnerabilities \cite{7911333}.  Some have used machine learning to find the states of an application that are probably of value to test that have not been tested and make a model of those states for testing \cite{Choi:2013:GGT:2544173.2509552}.
 
 
+\section{Past Research Challenges}
+There are numerous challenges to this research.  The main challenge is that I am not up to speed on how espresso works from a low level perspective.  The next issue is that I am not aware of how Android Studio works at a very low level either.  In order to exploit architectural features one must be aware of how these items work precisely.  
+
+For instance, my first attempt was to make a set of functions in a name space that would be called iteratively with a loop added to the test case.  This had numerous issues and I could not make it work.  The problem was that I had to force the application back to the beginning each iteration.  There was not a good function that was easily called to do so because of the nature of the espresso and AndroidJUnit4 test runners.  The code that I was embedding was actually inside of the test and so it was impossible to change states and then rerun the application tests from within the tests; otherwise it would have become recursive and app state would have created a whole host of new problems.  
+
+My second approach involved making a separate test class that would call the test class that espresso made.  There were several problems with this.  The biggest problem was that there are these preconditions that must be set using annotations.  A "rule" gets set and that must come before the test.  The rule must be scoped to the test class and cannot be scoped to the function being called.  The way that AndroidJUnit executes the tests is that it sees the "@RunWith" annotation which is tied to a class, then the "@Rule" annotation, then the "@Test" annotation.  It executes in that order.  So, when a new test class is generated, those idioms must be used. I discovered that trying to loop through one test class within another was not easily accomplished and could possibly be impossible.  I shifted my approach to the current implementation.
+
+
 \section{Implementation}
-The main purpose of this Application is to simplify testing of different device states with the application.  There are preloaded "device state changes" (DSCs) that can be used in a test suite to test the app states that are chosen for testing.  A DSC is a test case that starts with a device state then samples the chosen beginning app state, then changes the Devices state then sampling the app state again and evaluating if there were any exceptions thrown or errors detected.  A few examples of DSCs are: airplane mode off, sample the app state, switch airplane mode to on, re-sample the app state to evaluate.
+The main purpose of this Application is to simplify testing of different device states with the application.  There are preloaded "device state changes" (DSCs) that can be used in a test suite to test the app states that are chosen for testing.  A DSC is a test case that starts with a device state then runs the test cases then changes the Devices state then runs the tests again.  A few examples of DSCs are: airplane mode off, sample the app state, switch airplane mode to on, re-sample the app state to evaluate.
+
+I shifted the approach to be able to implement the DSCs to a BATCH script using ADB from the command line.  This approach works well because intents and actions can be called from the command line.  The command to run the tests can be changed to either run all tests in the project or to run individual tests.  
+
+Currently the script will run the test, change the state of the device, and then rerun the test.  When there is a failure the cause of the failure is captured in the command window.
+
+\section{Future Research Challenges and Possible Solutions}
+Scripting does not offer the robust programming capabilities that true object oriented architectures offer.  Building classes to iterate different device states and enforcing a true DRY and SOLID scripting library may prove to be a challenge.  Additionally, the automated testing tools available for BATCH files are limited.  One possible solution to this problem is to implement a .NET WPF project that calls the ADB API and can be used to execute the automated device state tests.  
+
+Another challenge is that commands do not exist for ADB to change proprietary device states.  Figuring out how to instantiate hardware devices from the command interface will prove extremely difficult and more manual testing will be required in those instances.   
+
+A third challenge to overcome will be making the logging and debugging apparatus in a way that it is easy to use and robust.  Currently only the DSC that was in play during the execution of the tests will be recorded and debug information from the ADB driver.  It is unknown to the research team at this time how much of the Android debugging information actually comes through the ADB driver.  The research team will have to tap into android logs and capture pertinent information or some other solution to capturing pertinent information will have to be developed.  This task is outside the scope of this current project (Note to class members, this will probably get moved to future research section).\\ \\
+
+\begin{tabular}{ |p{3cm}||p{3cm}| }
+	\hline
+	\multicolumn{2}{|c|}{Timeline} \\
+	\hline
+		10/16 & Investigate Classes scripting \\
+		\hline
+	10/23&   Figure out more ADB device commands to change states  \\
+	\hline
+	10/30 &Implement with more commands \\
+	\hline
+	11/6    &Capture Logging	 \\
+	\hline
+	11/13& Well defined Metrics \\
+	\hline
+	11/20& Finding apps to test library with  \\
+	\hline
+	11/27& Testing and recording \\
+	\hline
+	12/4 & Refining \\
+	\hline
+	12/11 & Refining / turn in \\
+	\hline
+	
+\end{tabular}
+\\
