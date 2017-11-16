@@ -1,5 +1,5 @@
 \section{Introduction}
-A common problem with automated mobile software testing is testing mobile applications when the state of the device changes.  Testing the different states of an application has been enhanced with tools such as Espresso and Robotium \cite{optimusinformationinc2016}. The problem with this issue is that often, the state of a device will cause a catastrophic failure of a feature within an application when the state of a mobile device changes; therefore, it is more expensive to not test device states against application states at all.  Since the state of an application can be easily saved and the state of a device can be easily changed programmatically, a solution that automatically tests application states with different device states is of great value.  For applications being used in different device states, such as a mapping application used outside of network range or medical applications using sensors for monitoring functions, application to device state testing this becomes an extremely important issue.  Some of these issues can even be life safety critical.  Additionally, the innovative ways applications are used with new hardware is only increasing.  State testing of applications with new hardware devices is a critical area of research to ensure that applications can continue to operate well. 
+A common problem with automated mobile software testing is testing mobile applications when the state of the device changes.  Testing the different states of an application has been enhanced with tools such as Espresso and Robotium \cite{optimusinformationinc2016}. The problem with this issue is that often, the state of a device will cause a catastrophic failure of a feature within an application when the state of a mobile device changes; therefore, it is more expensive to not test device states against application states at all.  Since the state of an application can be easily saved and the state of a device can be easily changed pro programatically, a solution that automatically tests application states with different device states is of great value.  For applications being used in different device states, such as a mapping application used outside of network range or medical applications using sensors for monitoring functions, application to device state testing this becomes an extremely important issue.  Some of these issues can even be life safety critical.  Additionally, the innovative ways applications are used with new hardware is only increasing.  State testing of applications with new hardware devices is a critical area of research to ensure that applications can continue to operate well. 
 
 In addition to state testing, there is a strong need for innovative approaches to testing context aware applications \cite{Luo:2017:TLT:3139486.3130945}.  A context aware application is an application that is able to detect information about the device's physical environment using instrumentation and then do something with that information.  
 
@@ -19,9 +19,11 @@ Espresso, an android testing application, has an excellent tool for testing Mobi
 
 
 \section{Related Work}
-There are several tools developed that can capture various information of an application and store said information for later tests.  These tools can be leveraged to create interesting app states instead of simple object states.  For instance the authors of \cite{7962332} built a tool that automatically captures UI information as a user utilizes an application.  The researchers with\cite{7927971} made a tool that can store UI information and then auto generate oracles that then get scripted into an Espresso test script for later use as a test case.  This tool could be used to run test cases as the DVCs execute as the state instead of static properties being evaluated. 
+There are several tools developed that can capture various information of an application and store said information for later tests.  These tools can be leveraged to create interesting app states instead of simple object states.  For instance Paulovsky et al. \cite{7962332} built a tool that automatically captures UI information as a user utilizes an application. 
 
-Many others, such as \cite{7927971} have made tools for recording tests that can be later executed in ways that are plaform independent which is a nice utility that we will not be concerned with in this work.  Others have made unit level state testing models such as \cite{MilaniFard:2014:LET:2642937.2642991} in which the state of the application is tested by automatically building a model using a dynamic and static crawler and then running that created model against a verification algorithm.  These researchers developed a way to use model testing to find security vulnerabilities \cite{7911333}.  Some have used machine learning to find the states of an application that are probably of value to test that have not been tested and make a model of those states for testing \cite{Choi:2013:GGT:2544173.2509552}.
+The most similar work to TADS is called Barista by Fazzini et al. \cite{7927971}.  They made a tool that can store UI information and then auto generate oracles that then get scripted into an Espresso test script for later use as a test case.  This tool could be used to run test cases as the DSCs execute as the state instead of static properties being evaluated. This solution cannot evaluate device state; though, the researchers have added doing so to their future works section.   
+
+Many others, such as \cite{7927971} have made tools for recording tests that can be later executed in ways that are platform independent which is a nice utility that we will not be concerned with in this work.  Others have made unit level state testing models such as MilaniFard el al. \cite{MilaniFard:2014:LET:2642937.2642991} in which the state of the application is tested by automatically building a model using a dynamic and static crawler and then running that created model against a verification algorithm.  These researchers developed a way to use model testing to find security vulnerabilities \cite{7911333}.  Some have used machine learning to find the states of an application that are probably of value to test that have not been tested and make a model of those states for testing \cite{Choi:2013:GGT:2544173.2509552}.
 
 
 \section{Past Research Challenges}
@@ -37,7 +39,9 @@ The main purpose of this Application is to simplify testing of different device 
 
 I shifted the approach to be able to implement the DSCs to a BATCH script using ADB from the command line.  This approach works well because intents and actions can be called from the command line.  The command to run the tests can be changed to either run all tests in the project or to run individual tests.  
 
-The solution is built on Microsoft Power Shell and written as Power Shell scripts.  Power Shell was decided on to enforce DRY and SOLID principles without the convolusion of building an executable program that is compiled.  
+The solution is built on Microsoft Power Shell and written as Power Shell scripts.  Power Shell was decided on to enforce DRY and SOLID principles without the convolution of building an executable program that is compiled.  
+
+The solution is run by running a powershell script from the command line with parameters that are the name of your solution and tests.
 
 \section{Future Research Challenges and Possible Solutions}
 Scripting does not offer the robust programming capabilities that true object oriented architectures offer.  Building classes to iterate different device states and enforcing a true DRY and SOLID scripting library may prove to be a challenge.  Additionally, the automated testing tools available for BATCH files are limited.  One possible solution to this problem is to implement a .NET WPF project that calls the ADB API and can be used to execute the automated device state tests.  
@@ -46,7 +50,13 @@ Another challenge is that commands do not exist for ADB to change proprietary de
 
 A third challenge to overcome will be making the logging and debugging apparatus in a way that it is easy to use and robust.  Currently only the DSC that was in play during the execution of the tests will be recorded and debug information from the ADB driver.  It is unknown to the research team at this time how much of the Android debugging information actually comes through the ADB driver.  The research team will have to tap into android logs and capture pertinent information or some other solution to capturing pertinent information will have to be developed.  This task is outside the scope of this current project (Note to class members, this will probably get moved to future research section).\\ \\
 
-Future research would be to investigate how device state affects installs.
+Barista \cite{7927971} provides a better script generation tool than Espresso.  Integrating TADS to run Barista could prove to be a valuable endeavor.  
+
+We also hope to expand the instrumentation capabilities to include wearable devices such as Android watch or even google glass for state testing with apps running on those devices.
+
+We intend to look at how much of a problem device state testing is in industry by interviewing several different mobile applications developers to ask them  
+
+The last future research we are considering at this time is to investigate how device state affects installs.  Installations can be affected by the state of different items running on a device and building a test script that installs an application and running that installation on devices with different states may prove valuable; though, some research into whether or not industry struggles with installations being affected by state would be an interesting approach.  
 
 \begin{tabular}{ |p{3cm}||p{3cm}| }
 	\hline
@@ -73,3 +83,5 @@ Future research would be to investigate how device state affects installs.
 	
 \end{tabular}
 \\
+\section{Threats to Validity}
+One serious threat to this work is that the automated test scripts built in Espresso can be affected by state changes \cite{7927971} which can cause a failure in the test due to the script's failure and not the application's.

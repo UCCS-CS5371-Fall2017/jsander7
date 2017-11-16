@@ -1,25 +1,34 @@
 ﻿#DSCs 
-#Import-Module C:\Users\jrsan\Dropbox\UCCS\CS5371_EmbeddedAndMobileTesting\ResearchProject\ProjectFiles\ADBCommands -force 
-#Import-Module C:\Users\jrsan\Dropbox\UCCS\CS5371_EmbeddedAndMobileTesting\ResearchProject\ProjectFiles\TestSuiteCommands -force 
+
+function global:invoke-TADSDSCExecuteAllDSCs{
+invoke-TADSDSCAirplaneModeOnRunOffRun
+}
 
 
-function invoke-DSCAirplaneModeOnRunOffRun 
+#------------------------------------------------
+#Runs test with airplane mode off then runs it on.
+#------------------------------------------------
+function global:invoke-TADSDSCAirplaneModeOnRunOffRun 
     {
-    $success = "heck YA"
-    $results = start-testSuitesAll
-    "running"
+     set-ADBAirplanModeOff
+    $success = "DSCAirplaneModeOnRunOffRun - Test Passed"
+    $results = start-TADSTestSuitesAll
+    "Initialize Test Results: " + $results
     #-----------------------------------------
+    set-ADBAirplanModeOn
     get-ADBAirplaneMode
     #-----------------------------------------
-    #Compares results of test to pass.  
+    #Compares results of test to pass. 
+    $results = start-TADSTestSuitesAll 
      If( $results -like '*OK (*') {   
+     $success + $results
      } Else {
+     "Test Fail Airplane Mode DSC"
         $results
      }
-     "ending"
+     set-ADBAirplanModeOff
+     "End invoke-DSCAirplaneModeOnRunOffRun"
     }
 
 
-    #Which funcs can be seen by others.
-    Export-ModuleMember -Function invoke-DSCAirplaneModeOnRunOffRun 
-    #Export-ModuleMember -Function get-connectivityInfo
+   

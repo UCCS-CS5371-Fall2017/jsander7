@@ -1,39 +1,34 @@
-﻿    function set-ADBBluetoothOn{
+﻿    function global:set-ADBBluetoothOn{
         adb shell am start -a android.settings.BLUETOOTH_SETTINGS 
         adb shell am start -a android.bluetooth.adapter.action.REQUEST_ENABLE
     }
 
-    function get-ADBconnectivityInfo{
+    function global:get-ADBconnectivityInfo{
         return adb shell dumpsys connectivity 
     }
 
-   function set-ADBAirplanModeOn{
+   function global:set-ADBAirplanModeOn{
         adb shell settings put global airplane_mode_on 1
         adb shell am broadcast -a android.intent.action.AIRPLANE_MODE
     }
 
-    function set-ADBAirplanModeOff{
-    adb shell settings put global airplane_mode_on 0
-    adb shell am broadcast -a android.intent.action.AIRPLANE_MODE
+    function global:set-ADBAirplanModeOff{
+        adb shell settings put global airplane_mode_on 0
+        adb shell am broadcast -a android.intent.action.AIRPLANE_MODE
     }
 
     #Will be true if on or false if not
-    function get-ADBAirplaneMode{
-    "get-ADBAirplanMode Running"
-      $onOrOff = adb shell settings get global airplane_mode_on
-      if($onOrOff = 1){
-        return True
+    function global:get-ADBAirplaneMode{
+    #"get-ADBAirplanMode Running" 
+    $onOrOff = adb shell settings get global airplane_mode_on #returns 0 airplaneMode off, and 1 airplaneMode on.  
+    if($onOrOff -eq 1){
+        return "true"
       }  else { 
-        return false
+        return "false"
       }
     }
     
     
     
-    #Which funcs can be seen by others.
-    Export-ModuleMember -Function set-ADBBluetoothOn
-    Export-ModuleMember -Function get-ADBconnectivityInfo
-    Export-ModuleMember -Function set-ADBAirplanModeOn
-    Export-ModuleMember -Function set-ADBAirplanModeOff
-    Export-ModuleMember -Function get-ADBAirplaneMode
+  
    # Export-ModuleMember -Function set-AirplanModeOn
