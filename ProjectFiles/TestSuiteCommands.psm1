@@ -18,14 +18,14 @@
 #------------------------------------------------------------------------------------------------
 
     # run 1 dsc all tests
-    function global:invoke-TADSExecuteOneDSCsWIthAllTestScripts([string]$inAppName) {
+    function global:invoke-TADSExecuteOneDSCsWIthAllTestScripts([string]$inAppName, [string]$inDSCName) {
         $global:appName = $inAppName
         invoke-TADSDSCAirplaneModeOnRunOffRun 
     }
 #------------------------------------------------------------------------------------------------
    
     # run 1 dsc 1 test
-    function global:invoke-TADSExecuteOneDSCsWIthAllTestScripts([string]$inAppName) {
+    function global:invoke-TADSExecuteOneDSCsWIthAllTestScripts([string]$inAppName, [string]$inDSCName, [string]$inTestName) {
         $global:appName
         invoke-TADSDSCAirplaneModeOnRunOffRun 
     }
@@ -34,7 +34,7 @@
     #HELPERS 
 #------------------------------------------------------------------------------------------------
 
-    #This function will run every suite in the test folder for the application
+    #This function will run every suite in the test folder for the application - used internally
     function global:start-TADSTestSuitesAll{
          "start TADSTestSuitesAll"
          $returnVal = adb shell am instrument -w com.example.android.wearable.recipeassistant.test/android.support.test.runner.AndroidJUnitRunner
