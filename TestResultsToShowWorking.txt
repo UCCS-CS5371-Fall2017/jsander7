@@ -1,0 +1,319 @@
+PS C:\Users\jrsan> C:\Users\jrsan\Dropbox\UCCS\CS5371_EmbeddedAndMobileTesting\ResearchProject\ProjectFiles\ProjectMain.ps1
+^^^^^^ 1 ^^^^^^^
+RUNNING ##############
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+
+
+com.example.android.wearable.recipeassistant.FirstRecipeClick:.
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 2.932
+
+
+
+OK (2 tests)
+
+
+
+
+
+TADS Airplane mode is off. 
+******  Turning Airplane mode on!  ******
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+!!!!!!!!!!!!!   DSCAirplaneModeOnRunOffRun - TEST PASSED
+
+
+com.example.android.wearable.recipeassistant.FirstRecipeClick:.
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 2.921
+
+
+
+OK (2 tests)
+
+
+
+
+
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+End invoke-DSCAirplaneModeOnRunOffRun
+Starting: Intent { act=android.settings.BLUETOOTH_SETTINGS }
+
+Warning: Activity not started, its current task has been brought to the front
+
+Starting: Intent { act=android.bluetooth.adapter.action.REQUEST_ENABLE }
+
+Bluetooth is on!
+
+
+com.example.android.wearable.recipeassistant.FirstRecipeClick:.
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 2.833
+
+
+
+OK (2 tests)
+
+
+
+
+
+TEST RESULTS WITH BLUETOOTH ON 
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+----------  TEST RESULTS WITH BLUETOOTH OFF: ----------
+DSCBluetoothOnRunOffRun - Test Passed
+
+
+com.example.android.wearable.recipeassistant.FirstRecipeClick:.
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 2.806
+
+
+
+OK (2 tests)
+
+
+
+
+
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+End invoke-DSCAirplaneModeOnRunOffRun
+^^^^^^ 2 ^^^^^^^
+RUNNING ##############
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 1.95
+
+
+
+OK (1 test)
+
+
+
+
+
+TADS Airplane mode is off. 
+******  Turning Airplane mode on!  ******
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+!!!!!!!!!!!!!   DSCAirplaneModeOnRunOffRun - TEST PASSED
+
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 1.967
+
+
+
+OK (1 test)
+
+
+
+
+
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+End invoke-DSCAirplaneModeOnRunOffRun
+Starting: Intent { act=android.settings.BLUETOOTH_SETTINGS }
+
+Warning: Activity not started, its current task has been brought to the front
+
+Starting: Intent { act=android.bluetooth.adapter.action.REQUEST_ENABLE }
+
+Bluetooth is on!
+
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 1.956
+
+
+
+OK (1 test)
+
+
+
+
+
+TEST RESULTS WITH BLUETOOTH ON 
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+----------  TEST RESULTS WITH BLUETOOTH OFF: ----------
+DSCBluetoothOnRunOffRun - Test Passed
+
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 2.033
+
+
+
+OK (1 test)
+
+
+
+
+
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+End invoke-DSCAirplaneModeOnRunOffRun
+^^^^^^ 3 ^^^^^^^
+RUNNING ##############
+Starting: Intent { act=android.settings.BLUETOOTH_SETTINGS }
+
+Warning: Activity not started, its current task has been brought to the front
+
+Starting: Intent { act=android.bluetooth.adapter.action.REQUEST_ENABLE }
+
+Bluetooth is on!
+
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 1.927
+
+
+
+OK (1 test)
+
+
+
+
+
+TEST RESULTS WITH BLUETOOTH ON 
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+----------  TEST RESULTS WITH BLUETOOTH OFF: ----------
+DSCBluetoothOnRunOffRun - Test Passed
+
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 2.069
+
+
+
+OK (1 test)
+
+
+
+
+
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+End invoke-DSCAirplaneModeOnRunOffRun
+^^^^^^ 4 ^^^^^^^
+RUNNING ##############
+Starting: Intent { act=android.settings.BLUETOOTH_SETTINGS }
+
+Warning: Activity not started, its current task has been brought to the front
+
+Starting: Intent { act=android.bluetooth.adapter.action.REQUEST_ENABLE }
+
+Bluetooth is on!
+
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 1.944
+
+
+
+OK (1 test)
+
+
+
+
+
+TEST RESULTS WITH BLUETOOTH ON 
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+----------  TEST RESULTS WITH BLUETOOTH OFF: ----------
+DSCBluetoothOnRunOffRun - Test Passed
+
+
+com.example.android.wearable.recipeassistant.SecondTest:.
+
+
+
+Time: 2.022
+
+
+
+OK (1 test)
+
+
+
+
+
+Broadcasting: Intent { act=android.intent.action.AIRPLANE_MODE }
+
+Broadcast completed: result=0
+
+End invoke-DSCAirplaneModeOnRunOffRun
+
+PS C:\Users\jrsan> 

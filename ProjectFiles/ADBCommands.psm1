@@ -1,4 +1,6 @@
-﻿    function global:set-ADBBluetoothOn{
+﻿
+    
+    function global:set-ADBBluetoothOn{
         adb shell am start -a android.settings.BLUETOOTH_SETTINGS 
         adb shell am start -a android.bluetooth.adapter.action.REQUEST_ENABLE
     }
