@@ -1,5 +1,5 @@
 ﻿        #Test Suite Commands - Interfaces to the outside
-
+        #Note: as of the day before my presentation to the embedded systems class, 11/29/17, these have not been completed, only one has.
    
     # run all dsc's all tests
     function global:invoke-TADSExecuteAllDSCsWIthAllTestScripts {
