@@ -31,7 +31,7 @@
         #set the name of the test in global var
         set-TADSGlobalRunSuiteCommand 
         #runs appropriate DSC.
-        runSelectedDSC
+        run-TADSSelectedDSC
         
         
     }
@@ -43,7 +43,7 @@
         #set the name of the test in global var
         set-TADSGlobalRunSuiteCommand 
         #runs appropriate DSC.
-        runSelectedDSC
+        run-TADSSelectedDSC
 
     }   
 
@@ -71,7 +71,7 @@
 #------------------------------------------------------------------------------------------------
        
        #runs appropriate DSC.
-       function runSelectedDSC{
+       function run-TADSSelectedDSC{
 
         if($global:TadsUserInput_DSCName  -eq "invoke-TADSDSCAirplaneModeOnRunOffRun"){
           invoke-TADSDSCAirplaneModeOnRunOffRun 

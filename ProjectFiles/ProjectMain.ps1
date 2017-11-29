@@ -15,20 +15,20 @@ $global:TadsUserInput_AppName = "com.example.android.wearable.recipeassistant"
 #required
 $global:TadsUserInput_JunitRunner = "android.support.test.runner.AndroidJUnitRunner"
 #required if doing only one test - if you fill this in you cannot run all of the test suites.
-$global:TadsUserInput_TestName = ""
+$global:TadsUserInput_TestName = "SecondTest"
 #rquired if doing only on DSC
 $global:TadsUserInput_DSCName = "invoke-TADSDSCAirplaneModeOnRunOffRun"
 
 
 
  "^^^^^^ 1 ^^^^^^^"
- invoke-TADSExecuteAllDSCsWIthAllTestScripts
+# invoke-TADSExecuteAllDSCsWIthAllTestScripts
  "^^^^^^ 2 ^^^^^^^"
- $global:TadsUserInput_TestName = "SecondTest"
- invoke-TADSExecuteAllDSCsWIthOneTestScript
+ #$global:TadsUserInput_TestName = "SecondTest"
+ #invoke-TADSExecuteAllDSCsWIthOneTestScript
  "^^^^^^ 3 ^^^^^^^"
- $global:TadsUserInput_DSCName = "invoke-TADSDSCBluetoothModeOnRunOffRun"
- invoke-TADSExecuteOneDSCsWIthEntireTestSuite
- "^^^^^^ 4 ^^^^^^^"
- invoke-TADSExecuteOneDSCsWIthOneTestCase
-
+ #$global:TadsUserInput_DSCName = "invoke-TADSDSCBluetoothModeOnRunOffRun"
+ #invoke-TADSExecuteOneDSCsWIthEntireTestSuite
+ #"^^^^^^ 4 ^^^^^^^"
+ #invoke-TADSExecuteOneDSCsWIthOneTestCase
+ #

@@ -58,13 +58,13 @@ The implementation allows a user to call a function to test the following as is 
 
 All of the files are available to be seen and modified.  New DSCs can be easily added using the idioms of the TADS solution in order to make very thorough test cases.
 
-The TADS solution is built on Microsoft Powershell and written as Powershell scripts.  Powershell was decided on to enforce DRY and SOLID principles as much as possible without the convolution of building an executable program that is compiled.  DRY and SOLID principles are ways of writing code that is clean and easy to reuse.  
+The TADS solution is built on Microsoft Powershell and written as Powershell scripts.  Powershell was decided on to enforce DRY and SOLID principles as much as possible and to make running from the command line as easy as possible.  DRY and SOLID principles are ways of writing code that is clean and easy to reuse.  
 
 The TADS solution is run by executing a powershell script.  There are global variables that must be populated by the user to indicate several items.  Figure 2. demonstrates those global variables.  They are modified in the file called "Project Main.ps1"  The easiest way to execute TADS testing is via the Powershell ISE. 
 
 Figure 2 is a break down of the functions to be called by your command line or in a script that a developer would write to test their application how they deem necessary.  The function applicable to what the developer is testing will be used.    
 
-There is a readme.txt file that should be followed to get the testing environment set up for usage of the TADS solution and there are thorough instructions included in the readme.txt file.  The TADS solution can be downloaded at: \url{https://github.com/UCCS-CS5371-Fall2017/jsander7/tree/master/ProjectFiles} \\
+There is a readme.txt file that should be followed to get the testing environment set up for usage of the TADS solution and there are thorough instructions included in the readme.txt file.  The TADS solution can be downloaded at: \url{https://github.com/UCCS-CS5371-Fall2017/jsander7/tree/master/ProjectFiles} 
 
 
 \begin{figure}[t]
@@ -76,8 +76,24 @@ There is a readme.txt file that should be followed to get the testing environmen
 
    
 
-All functions in the entire solution are available to be consumed by the user.  This is so that a programmer can build their own Powershell script out of the existing functions and extend what has been made up to this point.  
-As seen in Figure 3., within the TADS solution there are four main files.  They are: ProjectMain.ps1, DSCs.psm1, TestSuiteCommands.psm1, and ADBCommands.psm1.  The DSCs file contains all of the DSCs which is comprised of calls to the TestSuiteCommands and ADBCommands.  The TestSuiteCommands file contains the public interface found in Figure 1 and the commands that run the test suites in Espresso.  The ADMCommands file is where the state change commands are located that use ADB to change the states of the device. 
+All functions in the entire solution are:\\1. available to be consumed by the user\\ 2. gobally scoped to avoid the hassle of Powershell scoping issues \\ 3. named according to an idiom of Powershell using the TADS prefix.  For instance with the function \\"invoke-TADSExecuteAllDSCsWIthAllTestScripts()", "invoke-" is the Powershell idiom (there is a list of these online) and then the prefix TADS is added so as to avoid collision with other global functions that are not a part of the TADS solution, this is also a Powershell idiom, and then a description of the function's purpose. This is so that a programmer can build their own Powershell script out of the existing functions and extend what has been made up to this point.  
+As seen in Figure 3., within the TADS solution there are four main files.  They are: ProjectMain.ps1, DSCs.psm1, TestSuiteCommands.psm1, and ADBCommands.psm1.  
+
+\subsection{ProjectMain.ps1}
+
+ProjectMain.ps1 is where the developer will set into global variables the following: \\1. The name of their application project application's Espresso script name\\ 2. Type of Junitrunner \\3. A DSC name if the developer wants to run one DSC only \\ \\The application project name will automatically be use to make the test suite name needed by the ADB shell to run the Espresso test suite. This file is also a convenient space for a developer to call DSC tests and to establish a test script using the TADS tool.
+
+\subsection{DSC.psm1}
+
+DSC.psm1 is where the actual DSC tests are written.  The DSCs are individual functions.  The DSC function will run on all scripts or just one script depending on what the developer decides to do. The readme has more precise information on the details of using TADS.  The idiom used for these functions is PowershellPrefix-TADSDSCdescriptor.
+ 
+\subsection{TestSuiteCommands.psm1}
+
+This file is where the global variables filled out on the ProjectMain.ps1 file are used.  These are also where the functions from Figure 1. reside.  These functions are what actually execute the DSCs and there is a function in there for running a specific DSC that the other public interface functions consume.   
+
+\subsection{ADBCommands.psm1}
+
+The ADBCommands file is where the state change commands are located that use ADB to change the states of the device.  We have created easier to use functions than actually calling the ADB commands to change these items.  Additioanlly, logging takes place in these functions which is critical to the usefulness of TADS. The idiom used with these functions is "TADSADBdescriptors".
 
 
 
@@ -92,22 +108,20 @@ The results were simply passed tests.  We did not attempt to create any mutation
 
 We evaluated the affectiveness of the application by adding code to the application that caused an exception to be thrown if bluetooth was off.  We did the same if wifi was turned off to create an exception so that the airplane mode tests would show that having one state passes and another state causes a failure of the application.  
 
-These were simple tests but prove the idea that TADS demonstrates.  100% of the time these tests were caught.  Additionally, TADS adds test cases to be run.  Just two DSCs adds 4 test cases that are viable and valuable tests to be run.
+These were simple tests but prove the idea that TADS demonstrates.  100\% of the time these tests were caught.  Additionally, TADS adds test cases to be run.  Just two DSCs adds 4 test cases that are viable and valuable tests to be run.
 
 \section{Related Work}
 There are several tools developed that can capture various information of an application and store said information for later tests.  These tools can be leveraged to create interesting app states instead of simple object states.  For instance Paulovsky et al. \cite{7962332} built a tool that automatically captures UI information as a user utilizes an application. 
 
-Many others, such as Fazzini et al \cite{7927971} have made tools for recording tests that can be later executed in ways that are platform independent which is a nice utility that we will not be concerned with in this work.  Others have made unit level state testing models such as MilaniFard el al. \cite{MilaniFard:2014:LET:2642937.2642991} in which the state of the application is tested by automatically building a model using a dynamic and static crawler and then running that created model against a verification algorithm.  Their work levereges data modeling to find issues device state whereas TADS utilizes real world scenarios executed on real world devices.  
+Many others, such as Fazzini et al \cite{7927971} have made tools for recording tests that can be later executed in ways that are platform independent which is a nice utility that we will not be concerned with in this work.  Others have made unit level state testing models such as MilaniFard el al. \cite{MilaniFard:2014:LET:2642937.2642991} in which the state of the application is tested by automatically building a model using a dynamic and static crawler and then running that created model against a verification algorithm.  Their work levereges data modeling to find issues concerning device state whereas TADS utilizes real world scenarios executed on real world devices.  
 
-G. Bai et al developed a way to use model testing to find security vulnerabilities \cite{7911333}.  Choi et al have used machine learning to find the states of an application that are probably of value to test that have not been tested and make a model of those states for testing \cite{Choi:2013:GGT:2544173.2509552}.  Their work could be applied by developers utilizing TADS to develop DSCs appropriate for their application type. \\
+G. Bai et al \cite{7911333} developed a way to use model testing to find security vulnerabilities.  Choi et al have used machine learning to find the states of an application that are probably of value to test that have not been tested and make a model of those states for testing \cite{Choi:2013:GGT:2544173.2509552}.  Their work could be applied by developers utilizing TADS to develop DSCs appropriate for their application type. \\
 
 
 \section{Future Research}
-A future research opportunity would be to implement the TADS solution in a way that the state changes can be called easily within an Espresso script.  That would enable knowledgeable testers to correctly evaluate the affect of different state changes on their solutions at specific times during execution of the script.   
+One challenge is that commands do not exist for ADB to change proprietary device instrumentation states.  Figuring out how to instantiate different hardware devices from the command interface and easily implement new DSCs will prove extremely beneficial in making robust state testing of Android applications using proprietary instrumentation such as a portable Electrocardiograms.  
 
-Another challenge is that commands do not exist for ADB to change proprietary device instrumentation states.  Figuring out how to instantiate different hardware devices from the command interface and easily implement new DSCs will prove extremely beneficial in making robust state testing of Android applications using proprietary instrumentation suchh as a portable Electrocardiograms.  
-
-Barista \cite{7927971} provides a better script generation tool than Espresso.  Integrating TADS to run Barista could prove to be a valuable endeavor.  Also, being able to inject DSCs into Barista generated testing scripts will enhance the ability of Barista to catch bugs introduced by device state changes.  
+Barista \cite{7927971} provides a better script generation tool than Espresso.  Integrating TADS to run Barista could prove to be a valuable endeavor. Also, being able to inject DSCs into Barista generated testing scripts will enhance the ability of Barista to catch bugs introduced by device state changes.  
 
 We also hope to expand the instrumentation capabilities to include wearable devices such as Android watch or even google glass for state testing with apps running on those devices.  Currently TADS runs those applications on the device without any issues but we have not tested the capability of TADS on an android wear device yet.
 
@@ -117,7 +131,7 @@ Another interesting area of research would be to apply the work by Choi et al \c
 
 The last future research we are considering at this time is to investigate how device state affects installs.  Installations can be affected by the state of different items running on a device and building a test script that installs an application and running that installation on devices with different states may prove valuable; though, some research into whether or not industry struggles with installations being affected by state would be an interesting approach.  
 
-ADD table with dsc's and the name of them with a note in the caption stating more would be added if actually publishing.  
+
 
 
 \section{Threats to Validity}

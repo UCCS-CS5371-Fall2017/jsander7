@@ -13,7 +13,7 @@ invoke-TADSDSCBluetoothModeOnRunOffRun
 function global:invoke-TADSDSCAirplaneModeOnRunOffRun
     {
     
-     set-ADBAirplanModeOff
+     set-TADSADBAirplanModeOff
     #run test with APMode off
     #$results = 
     adb shell am instrument $global:TADSGlobalRunCommand
@@ -21,7 +21,7 @@ function global:invoke-TADSDSCAirplaneModeOnRunOffRun
     #$results
     "******  Turning Airplane mode on!  ******" 
     #-----------------------------------------
-    set-ADBAirplanModeOn
+    set-TADSADBAirplanModeOn
     #-----------------------------------------
     #Compares results of test to pass. 
 
@@ -33,7 +33,7 @@ function global:invoke-TADSDSCAirplaneModeOnRunOffRun
      "Test Fail invoke-TADSDSCAirplaneModeOnRunOffRun DSC"
         #$results
      }
-     set-ADBAirplanModeOff
+     set-TADSADBAirplanModeOff
      "End invoke-DSCAirplaneModeOnRunOffRun"
     }
 
@@ -43,14 +43,14 @@ function global:invoke-TADSDSCAirplaneModeOnRunOffRun
 #------------------------------------------------
 function global:invoke-TADSDSCBluetoothModeOnRunOffRun 
     {
-     set-ADBBluetoothOn
+     set-TADSADBBluetoothOn
    "Bluetooth is on!"
    # $results = 
     adb shell am instrument $global:TADSGlobalRunCommand
     "TEST RESULTS WITH BLUETOOTH ON " 
      #$results
     #-----------------------------------------
-    set-ADBAirplanModeOff
+    set-TADSADBAirplanModeOff
     #-----------------------------------------
     #Compares results of test to pass. 
     "----------  TEST RESULTS WITH BLUETOOTH OFF: ----------" 
@@ -62,7 +62,7 @@ function global:invoke-TADSDSCBluetoothModeOnRunOffRun
      "Test Fail Airplane Mode DSC"
         #$results
      }
-     set-ADBAirplanModeOff
+     set-TADSADBAirplanModeOff
      "End invoke-DSCAirplaneModeOnRunOffRun"
     }
 
