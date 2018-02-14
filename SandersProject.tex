@@ -1,63 +1,58 @@
-\documentclass[sigconf]{acmart}
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{booktabs} 
+\usepackage[hidelinks]{hyperref} %Prevents links from having "ALL" appended and hidelinks makes the color boxes disappear.
 
-\usepackage{booktabs} % For formal tables
 
-\setcopyright{rightsretained}
-
-% These commands are optional
-%\acmBooktitle{Transactions of the ACM Woodstock conference}
-%\editor{Jennifer B. Sartor}
-%\editor{Theo D'Hondt}
-%\editor{Wolfgang De Meuter}
 
 
 \begin{document}
+	
 \title{Automating Device State to Android Test Suite Testing }
+\IEEEpubid{}
 
-\author{Jonathan Sanders}
-%\authornote{Dr.~Trovato insisted his name be first.}
-%\orcid{1234-5678-9012}
-\affiliation{
- \institution{University of Colorado Colorado Springs}
- \streetaddress{1420 Austin Bluffs Pkwy}
- \city{Colorado Springs} 
-\state{CO} 
-\postcode{80918}
+\author{\IEEEauthorblockN{1\textsuperscript{st} Jonathan Sanders}
+	\IEEEauthorblockA{\textit{Computer Science Department} \\
+		\textit{University of Colorado}\\
+		Colorado Springs, United States of America \\
+		jrsanders5411@gmail.com}
+	\and
+	\IEEEauthorblockN{2\textsuperscript{nd} Kristen Walcott-Justice}
+	\IEEEauthorblockA{\textit{Computer Science Department} \\
+		\textit{University of Colorado}\\
+		Colorado Springs, United States of America  \\
+		kjustice@uccs.edu}
+
 }
-\email{jsander7@uccs.edu}
-
-\author{Dr. Justice}
-%\authornote{The secretary disavows any knowledge of this author's actions.}
-\affiliation{
-  \institution{University of Colorado Colorado Springs}
- \streetaddress{1420 Austin Bluffs Pkwy}
- \city{Colorado Springs} 
-\state{CO} 
-\postcode{80918}
-}
-\email{kjustice@uccs.edu}
 
 
-% The default list of authors is too long for headers.
+\maketitle
 
 
 
 \begin{abstract}
 Android testing still has many areas to cover in order to make automated testing of Android applications as thorough as possible.  One area of research that has yet to be investigated is automating testing of Android applications against changing device states.  Device states can and do change during the usage of applications and do impact the usability of an app.
 
-This paper creates a way to easily test multiple device states against an existing Android application's test suites.  We built a tool that we called TADS (Test application to device state) that enables a developer to very easily run their Espresso test suites against multiple state changes in the device.  
+This paper presents a simple, yet novel, approach to easily test multiple device states against an existing Android application's test suites.  We built a tool that we called TADS (Test Application to Device State) that enables a developer to very easily run their Espresso test suites against multiple state changes in the device.  
 \end{abstract}
 
 
 
-\keywords{Automata for mobile device testing, Automated mobile state testing, Context Aware testing}
+\begin{IEEEkeywords}
+	Automated testing, Automated mobile state testing, Automated mobile testing, Context Aware testing
+\end{IEEEkeywords}	
+
+\IEEEpubidadjcol
+
+\input{SandersBody}
 
 
-\maketitle
+\bibliographystyle{IEEETran}
+\bibliography{IEEEabrv,SandersBib} 
 
-\input{samplebody-conf}
-
-\bibliographystyle{ACM-Reference-Format}
-\bibliography{sample-bibliography} 
-
+	
 \end{document}

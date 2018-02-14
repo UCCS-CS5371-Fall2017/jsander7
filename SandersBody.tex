@@ -1,12 +1,7 @@
 \section{Introduction}
 \subsection{Overview}
-Android applications have become a staple of many people's everyday mobile computing user experience.  As of the first quarter of 2017 Android possessed 85\% of the mobile phone market \cite{chau_2017}.  The need for complete and thorough testing capabilities of Android applications has never been greater. There is currently a deficit in an area of testing for mobile devices regarding the "state" of the mobile device while testing is taking place. Very often, particular states will cause a failure of a mobile application and currently there are not any good tools available to test different states to avoid these types of failures.
-\begin{figure}[t]
-	\centering
-	\caption[TADS work flow]{TADS work flow (contents of a DSC)}
-	\label{fig:table1}
-	\includegraphics[width=1\linewidth]{table1}
-\end{figure}
+Android applications have become a staple of many people's everyday mobile computing user experience.  As of the first quarter of 2017 Android possessed 85\% of the mobile phone market \cite{boulos2014mobile}.  The need for complete and thorough testing capabilities of Android applications has never been greater. There is currently a deficit in an area of testing for mobile devices regarding the "state" of the mobile device while testing is taking place. Very often, particular states will cause a failure of a mobile application and currently there are not any good tools available to test different states to avoid these types of failures.
+
 The state of the device is the current settings of different modules within the mobile device such as if bluetooth is on or off or if airplane mode is on or off; other "states" include having different applications running that access common instrumentation or having hardware devices connected to the mobile device and running with an application such as a heart rate monitoring application running with a conected physical Electrocardiogram (EKG).  Any configuration of these different instruments, applications, operating system configurations, or modules can be considered a device's state; hereto referred as Ds for device state.
 
 We have developed a novel approach to very easily run existing Android test scripts against any Ds one could imagine.  The solution we built is called "TADS" (Testing Application to Device State) that uses Espresso, an automated Android application testing tool, to test the Mobile application against multiple DSs.  TADS is primarily concerned with identifying errors caused by changing device states and not as concerned with identifying why the state change caused a failure; error checking is already provided by Espresso scripts.  TADS does show which TADS test failed.
@@ -16,7 +11,12 @@ Espresso is a tool developed by Google that enables a user to easily record a se
 TADS uses a simple principle of looping through various DSs.  Figure 1. demonstrates the following process for testing. TADS will set a baseline DS, run the Espresso script, get the results, then change the DS, and then re-run the Espresso script and report those results.  A conglomuration of testing different DSs becomes a function in the TADS application called a Device State Change hereto referred as a DSC.  One example is the bluetooth DSC.  Bluetooth is turned on by TADS, the Espresso script is executed, then bluetooth is turned off by TADS, and lastly the Espresso script is executed and the results of that test are reported to the user.
 
 It is more expensive for a company to not test applications against DSs because the failures are often catastrophic.  Companies have encountered these bugs after releasing an update for their application on the users' devices and the failure often causes a loss of credibility, loss of functionality that must then be quickly corrected and updated, and ultimately costs the company a loss of customers and money.  Testing the different states of just an application has been enhanced with tools such as Espresso, Barista, and Robotium \cite{optimusinformationinc2016} but the lack of testing those application states against the device state is where the problem lies.  Since the state of an application can be easily saved and the state of a device can be easily changed programmatically, a solution that automatically tests application states with different device states is of great value.  For applications being used in different device states, such as a "mapping" applications used outside of network range or medical applications using sensors for monitoring functions, application to device state testing becomes an extremely important issue.  Some of these issues can even be life safety critical.  One example is that of medical applications utilizing portable Electrocardiograms.  These devices are used to monitor a patient's heart rythems in order to detect anomolyes that are symptoms of particular life threatening diseases \cite{boulos2014mobile}.  If a Ds causes a small failure in the medical application, incorrect results can be reported resulting in a false positive or a false negative.  The innovative ways applications are used with new hardware is only increasing.  State testing of applications with new hardware devices is a critical area of research to ensure that applications can continue to operate well. 
-
+\begin{figure}[t]
+	\centering
+	\caption[TADS work flow]{TADS work flow (contents of a DSC)}
+	\label{fig:table1}
+	\includegraphics[width=1\linewidth]{table1}
+\end{figure}
 An emerging field that is gaining tremendous traction in the mobile device industry where testing of DSs is absolutly critical is that of context aware applications.
 According to Luo et al, there is a strong need for innovative approaches to testing context aware applications \cite{Luo:2017:TLT:3139486.3130945}. TADS is a innovative approach to do context aware testing. 
 
@@ -25,7 +25,7 @@ A "context aware" application is an application that is able to detect informati
 \subsection{Research Contributions}
 For our first contribution, as of the writing of this paper, there is not any research available about automatic device state testing.  Our work highlights and addresses this need directly and gives researchers and companies an option to pursue that enables them to create Ds testing with their Android applications.
 
-The next main contribution of this work is that TADS demonstrates that a library for doing state testing of devices, that can be run with Espresso scripts, is highly beneficial and easy to make.  This research contributes a tool that can be used right now for anyone wanting to improve their test suites to include device state testing. The full source code can be seen and downloaded at: \url{https://github.com/UCCS-CS5371-Fall2017/jsander7/tree/master/ProjectFiles}.
+The next main contribution of this work is that TADS demonstrates that a library for doing state testing of devices, that can be run with Espresso scripts, is highly beneficial and easy to make.  This research contributes a tool that can be used right now for anyone wanting to improve their test suites to include device state testing. The full source code can be seen and downloaded at: \\ \url{https://github.com/UCCS-CS5371-Fall2017/jsander7/tree/master/ProjectFiles}.
 
 Another contribution this work makes is that TADS also tackles a further research problem, presented by Fazzini et al. \cite{7927971}, of testing instrumentation in an automated fashion.  TADS extends Fazzini et al's work.  They highlight the fact that most instrumentation and Ds testing against an application is currently being done manually and that it is very time consuming and expensive because of the personnel hours required to complete that testing.  Fazzini et al. created Barista which is a better way to record and execute Android testing than Espresso.  Barista is an application that records user interactions with any Android application and automatically can generate oracles and then it records those interactions and oracles into an Espresso type script for later execution.  TADS can be easily integrated with Barista to enable the user to run Espresso scripts generated by Barista with different DSs.
 
@@ -34,7 +34,7 @@ The last contribution this work makes is a very simple way for testing context-a
 \section{Background}
 TADS is built out of the Microsoft Powershell application.  TADS also utilizes the Android Device Bridge and Android Studio.  An overview of those are presented below.
 
-Android Studio is Google's integrated development environment for developing Android applications.  Android studio generates a project when an Android application is started and within that project is a testing project.  When a developer makes an automated test those scripts are included in that test project.  Then, when the application is installed on a mobile device with the testing project attached (which is the default behavior of Android Studio, the test scripts are included on the device and can be executed via the Android Device Bridge.  
+Android Studio is Google's integrated development environment for developing Android applications.  Android studio generates a project when an Android application is started and within that project is a testing project.  When a developer makes an automated test those scripts are included in that test project.  Then, when the application is installed on a mobile device with the testing project attached (which is the default behavior of Android Studio), the test scripts are included on the device and can be executed via the Android Device Bridge.  
 
 Espresso, an android testing application, is part of Android Studio and is an excellent tool for testing Mobile application UI's \cite{nolan2015agile}.  The tool records what is happening at a code level while a user performs different actions using the UI.  This enables a working application to have a test automatically generated that can then be run at a later time which can be used to create a regression test suite.  This actually enables states of the application to be tested without having to use any form of state machines or modeling.  This tool called "Test Recorder" is foundational to TADS.  When espresso scripts are stored in a test project within Android studio they becomes a test suite.  TADS can easily run an entire suite or an individual test script which is referred to as a test case.
 
@@ -119,7 +119,7 @@ G. Bai et al \cite{7911333} developed a way to use model testing to find securit
 
 
 \section{Future Research}
-One challenge is that commands do not exist for ADB to change proprietary device instrumentation states.  Figuring out how to instantiate different hardware devices from the command interface and easily implement new DSCs will prove extremely beneficial in making robust state testing of Android applications using proprietary instrumentation such as a portable Electrocardiograms.  
+One challenge is that commands do not exist for ADB to change proprietary device instrumentation states.  Figuring out how to instantiate different hardware devices from the command interface and easily implement new DSCs will prove extremely beneficial in making robust state testing of Android applications using proprietary instrumentation such as a portable Electrocardiograms.  
 
 Barista \cite{7927971} provides a better script generation tool than Espresso.  Integrating TADS to run Barista could prove to be a valuable endeavor. Also, being able to inject DSCs into Barista generated testing scripts will enhance the ability of Barista to catch bugs introduced by device state changes.  
 
@@ -135,6 +135,6 @@ The last future research we are considering at this time is to investigate how d
 
 
 \section{Threats to Validity}
-One serious threat to this work is that the automated test scripts built in Espresso can be affected by state changes \cite{7927971} which can cause a failure in the test due to the script's failure and not the application's.  This error will be revealed by the logging utility and corrections can be made a test design time.  
+One serious threat to this work is that the automated test scripts built in Espresso can be affected by state changes \cite{7927971} which can cause a failure in the test due to the script's failure and not the application's.  That failure will result in a false negative test outcome.  This error will be revealed by the logging utility and corrections can be made a test design time.  These false negatives could cost several hours in developer time per failure.
 
 
